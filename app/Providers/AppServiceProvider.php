@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ContactUs;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,9 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Paginator::useBootstrap();
-        // if (Schema::hasTable('contact_us')) {
-        //     view()->share('contact', ContactUs::first());
-        // }
+        Paginator::useBootstrap();
+        if (Schema::hasTable('contact_us')) {
+            view()->share('contact', ContactUs::first());
+        }
     }
 }

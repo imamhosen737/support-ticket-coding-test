@@ -13,23 +13,6 @@
                     Dashboard
                 </a>
 
-                <a class="nav-link {{ $prefix == 'student' ? '' : 'collapsed' }}" href="#"
-                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts1"
-                    aria-expanded="{($prefix == 'student')?'true':'false'}}" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-school"></i></div>
-                    Student Module
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-
-                <div class="collapse {{ $prefix == 'student' ? 'collapse show' : '' }}" id="collapseLayouts1"
-                    aria-labelledby="headingOne" data-bs-parent="#collapseLayouts1">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link {{ $route == 'student.index' ? 'active' : '' }}"
-                            href="{{ route('student.index') }}"><i class="fas fa-angle-right"></i>&nbsp;Manage
-                            Students</a>
-
-                    </nav>
-                </div>
 
                 <a class="nav-link {{ $prefix == 'setup' ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse"
                     data-bs-target="#collapseLayouts2" aria-expanded="{($prefix == 'setup')?'true':'false'}}"
@@ -39,7 +22,7 @@
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
 
-                <div class="collapse {{ $prefix == 'setup' ? 'collapse show' : '' }}" id="collapseLayouts2"
+                {{-- <div class="collapse {{ $prefix == 'setup' ? 'collapse show' : '' }}" id="collapseLayouts2"
                     aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link {{ $route == 'custom-field.index' ? 'active' : '' }}"
@@ -47,7 +30,7 @@
                             Custom Field</a>
 
                     </nav>
-                </div>
+                </div> --}}
 
                 <a class="nav-link {{ $prefix == 'setting' ? '' : 'collapsed' }} " href="#"
                     data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"

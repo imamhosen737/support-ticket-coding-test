@@ -1,0 +1,133 @@
+@extends('layouts.admin')
+@section('title', 'Create User')
+@section('admin-content')
+    @php
+
+    @endphp
+    <main>
+        <div class="container ">
+            <div class="heading-title p-2 my-2">
+                <span class="my-3 heading "><i class="fas fa-home"></i> <a href="{{ route('dashboard') }}">Home</a> > Ticket >
+                    Issue Ticket
+                </span>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header"><i class="fas fa-icon-ticket"></i>Ticket Issue Form</div>
+                <div class="card-body table-card-body p-3 mytable-body">
+
+                    <form id="customer_form" action="{{ route('save.ticket') }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" id="method_type" value="post">
+                        <input type="hidden" id="customer_id" name="customer_id" value="{{ $user_info->id }}">
+                        <input type="hidden" id="customer_name" name="customer_name" value="{{ $user_info->name }}">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Subject</label>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <span class="clone">:</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" name="subject" value=""
+                                            class="form-control my-form-control @error('subject') is-invalid @enderror"
+                                            id="subject">
+                                        @error('subject')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Description</label>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <span class="clone">:</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <input type="text" name="description" value=""
+                                            class="form-control my-form-control  @error('description') is-invalid @enderror">
+                                        @error('description')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Priority Level </label>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <span class="clone">:</span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        {{-- <input type="text" name="priority_level" value="" autocomplete="off"
+                                            class="form-control my-form-control  @error('priority_level') is-invalid @enderror"
+                                            readonly> --}}
+                                        <select name="priority_level" id="priority_level"
+                                            class="form-control my-form-control  @error('priority_level') is-invalid @enderror">
+                                            <option value="">Select</option>
+                                            <option value="Low">Low</option>
+                                            <option value="Medium">Medium</option>
+                                            <option value="Urgent">Urgent</option>
+                                        </select>
+                                        @error('priority_level')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row right-row">
+                                    <div class="col-md-4 col-12">
+                                        <label>Attachment </label>
+                                    </div>
+                                    <div class="col-md-1 text-right">
+                                        <span class="clone">:</span>
+                                    </div>
+                                    <div class="col-md-5 col-12">
+                                        <input type="file"
+                                            class="form-control my-form-control  @error('attachment') is-invalid @enderror"
+                                            id="attachment" name="attachment" onchange="readURL(this);">
+                                        <strong><span class="text-danger" id="imageError"></span></strong>
+                                    </div>
+                                    <div class="col-md-2 ps-0 col-4">
+                                        <img class="form-controlo img-thumbnail w-100" src="#" id="previewImage"
+                                            style="height:80px; background: #3f4a49;">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" id="submit-btn"
+                                            class="btn btn-primary btn-sm mt-2 float-right submit-btn"
+                                            value="Submit">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+@endsection
+@push('admin-js')
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewImage')
+                        .attr('src', e.target.result)
+                        .width(100)
+                        .height(80);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        document.getElementById("previewImage").src =
+            "{{ isset($user->attachment) ? asset($user->attachment) : asset('noimage.png') }}";
+    </script>
+@endpush

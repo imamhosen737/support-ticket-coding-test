@@ -12,29 +12,13 @@
                 <div class="col-12">
                     <div class="center">
                         <div class="company-name my-2">
-                            Student Portal
+                            Support Ticket Management System
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="row row-cols-md-4 row-cols-1 mt-3 g-2">
-                <div class="col">
-                    <div class="card dashboard-card" style="background-color: #165669;">
-                        <div class="card-body">
-                            <a href="{{ route('student.index') }}" style="text-decoration:none">
-                                <div class="text-center">
-                                    <button type="button" class="btn position-relative" style="background-color:white">
-                                        <i class="fas fa-user-graduate" style="font-size: 18px"></i>
-                                    </button>
-                                </div>
-                                <div class="dashboard-title">
-                                    Manage Students
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
                 <div class="col">
                     <div class="card dashboard-card" style="background-color: #8A0003">
                         <div class="card-body">

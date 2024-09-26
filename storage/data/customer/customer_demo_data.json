@@ -1,0 +1,8 @@
+[
+    {
+        "name": "DPI", "customer_code": "I-0001", "email": "mahmudrana21@gmail.com", "username": "01777664786", "password": "$2y$10$wJB78CRiPdl2i0IkD6SR4ew4Eo484uWNuF1klCqnupaY973fvbEI2", "image": "logo7.jpg", "address": "Dhaka, Bangladesh"
+    },
+    {
+        "name": "BUBT", "customer_code": "I-0002", "email": "mdrana.bigm@gmail.com", "username": "01309929514", "password": "$2y$10$wJB78CRiPdl2i0IkD6SR4ew4Eo484uWNuF1klCqnupaY973fvbEI2", "image": "logo8.jpg", "address": "Mirpur, Dhaka, Bangladesh"
+    }
+]

@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Paginator::useBootstrap();
+        // if (Schema::hasTable('contact_us')) {
+        //     view()->share('contact', ContactUs::first());
+        // }
     }
 }

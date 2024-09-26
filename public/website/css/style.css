@@ -1,0 +1,70 @@
+body {
+    background-color: #e4e9e8;
+    overflow-x: hidden;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*!
+   * Registration Form Design
+   */
+
+.custom-card {
+    border: 1px solid #b4b5b6;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 25px;
+}
+
+.custom-form-control:focus {
+    box-shadow: none;
+    border: 1px solid #da924e;
+}
+
+.title-section {
+    background-color: #ebebeb;
+    color: black;
+}
+
+.form-label {
+    font-size: 15px;
+}
+
+.btn-add {
+    padding: 1px 4px;
+    background-color: #20b2aa;
+    border-color: #20b2aa;
+    color: #fff;
+    font-size: 10px;
+}
+
+.btn-add:hover {
+    background-color: #fff;
+    border-color: #20b2aa;
+    color: #20b2aa;
+}
+
+.btn-delete {
+    padding: 1px 4px;
+    background-color: #ff0000;
+    border-color: #ff0000;
+    color: #fff;
+    font-size: 10px;
+}
+
+.btn-delete:hover {
+    background-color: #fff;
+    border-color: #ff0000;
+    color: #ff0000;
+}
+.error {
+    color: red;
+    font-size: 14px;
+}

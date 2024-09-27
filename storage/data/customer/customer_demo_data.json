@@ -4,5 +4,8 @@
     },
     {
         "name": "Emon", "customer_code": "I-0002", "email": "emon@gmail.com", "username": "emon@gmail.com", "password": "$2y$10$wJB78CRiPdl2i0IkD6SR4ew4Eo484uWNuF1klCqnupaY973fvbEI2", "image": "logo8.jpg", "address": "Mirpur, Dhaka, Bangladesh"
+    },
+    {
+        "name": "Noman", "customer_code": "I-0003", "email": "noman@gmail.com", "username": "noman@gmail.com", "password": "$2a$12$ZWIX22NlJLB9w7JGxLn.cuhoY5MMInGGtI/0xJmh0ns6SjblktcN2", "image": "logo8.jpg", "address": "Kandir Par, Comilla, Bangladesh"
     }
 ]

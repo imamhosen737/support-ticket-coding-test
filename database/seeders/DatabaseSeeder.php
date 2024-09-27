@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Customer;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
 use Database\Seeders\CustomerSeeder;
 use Database\Seeders\ContactUsSeeder;
 
@@ -24,8 +25,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-	        ContactUsSeeder::class,
-	        CustomerSeeder::class,
-    	]);
+            ContactUsSeeder::class,
+            CustomerSeeder::class,
+            UserSeeder::class,
+        ]);
     }
 }

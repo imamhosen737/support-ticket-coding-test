@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <title>Customer Login | @isset($contact->name)
+    <title>Admin Login | @isset($contact->name)
             {{ $contact->name }}
         @endisset
     </title>
@@ -42,7 +42,7 @@
                                     onclick="return confirm('Under Construction')">Need Help?</a>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('login.check') }}" method="POST">
+                                <form action="{{ route('admin-login.check') }}" method="POST">
                                     @csrf
                                     <div class="row row-cols-1 g-2">
                                         <div class="col py-0 my-0">
@@ -103,8 +103,7 @@
     <!--Notice Scrolling -->
     <section style="position: fixed;bottom:0px;left:0px;right:0px">
         <div class="alert alert-primary w-100 py-1 my-0" role="alert">
-            <strong>N.B: Customer's username :</strong> imamhosen737@gmail.com, <strong>password :</strong> 123321 |
-            <strong>username : </strong> noman@gmail.com, <strong>password :</strong> 12345678
+            <strong>N.B: username :</strong> admin@gmail.com, <strong>password :</strong> 12345678
             (Before update password)
         </div>
     </section>

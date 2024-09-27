@@ -6,14 +6,24 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\CustomerAuthController;
+
 
 //Home route
 Route::get('/', function () {
     return view('auth.login');
 });
+
+Route::get('/admin_log', function () {
+    return view('auth.admin_login');
+});
 // admin route
+Route::get('/admin-login', [UserAuthController::class, 'loginShow'])->name('admin-login');
+Route::post('/admin-login', [UserAuthController::class, 'authCheck'])->name('admin-login.check');
+
+//customer login
 Route::get('/login', [CustomerAuthController::class, 'loginShow'])->name('login');
 Route::post('/login', [CustomerAuthController::class, 'authCheck'])->name('login.check');
 
@@ -37,12 +47,32 @@ Route::group(['middleware' => ['auth:customer']], function () {
     });
 
     //Contact us  route
-    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
-    Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('contact-us.update');
+    // Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
+    // Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('contact-us.update');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('/all-tickets', [TicketController::class, 'allTickets'])->name('ticket.all-ticket');
-    Route::get('/in-progress/{id?}', [TicketController::class, 'inProgressTicket'])->name('ticket.in-progress');
-    Route::get('/resolved/{id?}/{customer_email?}', [TicketController::class, 'resolvedTicket'])->name('ticket.resolved');
+
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('admin/logout', [UserAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('admin/dashboard', [UserAuthController::class, 'dashboard'])->name('admin-dashboard');
+
+    Route::prefix('ticket')->group(function () {
+        Route::get('/ticket-list', [TicketController::class, 'index'])->name('ticket.list');
+        Route::get('/issue-ticket', [TicketController::class, 'create'])->name('issue.ticket');
+        Route::put('/update-ticket/{ticket}', [TicketController::class, 'update'])->name('update.ticket');
+        Route::get('/edit-ticket/{ticket}', [TicketController::class, 'edit'])->name('edit.ticket');
+        Route::post('/save-ticket', [TicketController::class, 'store'])->name('save.ticket');
+        Route::delete('/delete-ticket/{ticket}', [TicketController::class, 'destroy'])->name('delete.ticket');
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('/all-tickets', [TicketController::class, 'allTickets'])->name('ticket.all-ticket');
+        Route::get('/in-progress/{id?}', [TicketController::class, 'inProgressTicket'])->name('ticket.in-progress');
+        Route::get('/resolved/{id?}/{customer_email?}', [TicketController::class, 'resolvedTicket'])->name('ticket.resolved');
+    });
+
+    //Contact us  route
+    Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
+    Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('contact-us.update');
 });

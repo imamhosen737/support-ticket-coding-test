@@ -78,11 +78,6 @@
                         </nav>
                     </div>
 
-                    <a class="nav-link  {{ $route == 'contact.us' ? 'active' : '' }}"
-                        href="{{ route('contact.us') }}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-blender-phone"></i></div>
-                        Contact Us.
-                    </a>
                 @elseif (Auth::guard('customer')->check())
                     <a class="nav-link {{ $prefix == 'setting' ? '' : 'collapsed' }} " href="#"
                         data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"

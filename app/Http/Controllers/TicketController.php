@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
@@ -73,7 +74,7 @@ class TicketController extends Controller
                 'Description: ' . $request->description . "\n" .
                 'Priority Level: ' . $request->priority_level . "\n";
 
-            // Send the email
+            // Send the email to admin
             Mail::raw($body, function ($message) use ($subject, $customer_email, $customer_name) {
                 $message->to('admin@gmail.com')
                     ->subject($subject)
@@ -166,7 +167,12 @@ class TicketController extends Controller
 
     public function allTickets()
     {
-        $all_tickets = Ticket::orderBy('created_at', 'asc')->get();
+        // $all_tickets = Ticket::orderBy('created_at', 'asc')->get();
+        $all_tickets = DB::table('tickets as t')
+            ->select('t.id', 't.subject', 't.description', 't.priority_level', 't.attachment', 't.created_at', 't.status', 'customers.email as customer_email')
+            ->leftJoin('customers', 'customers.id', '=', 't.customer_id')
+            ->orderBy('t.created_at', 'asc')
+            ->get();
 
         return view('ticket.admin_ticket_list', compact('all_tickets'));
     }
@@ -180,6 +186,38 @@ class TicketController extends Controller
             $ticket->save();
 
             Session::flash('success', ' Ticket In Progress Successfully');
+            return back();
+        } else {
+            Session::flash('errors', 'Something Went Wrong!');
+            return back();
+        }
+    }
+
+    public function resolvedTicket($id = "", $customer_email = "")
+    {
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->status = 'Resolved';
+            $ticket->resolved_at = now();
+            $ticket->save();
+
+            $email_to = $customer_email;
+            $subject = 'Subject: ' . 'Resolved and close your ticket';
+            $body = 'Dear sir/mam, ' . "\n" .
+                'Our team has resolved & closed your ticket' . "\n" .
+                'Customer ID is: ' . $ticket['customer_id'] . "\n" .
+                'And your ticket number was: ' . $id . "\n" .
+                'Thank you!';
+
+            // Send the email to customer
+            Mail::raw($body, function ($message) use ($email_to, $subject) {
+                $message->to($email_to)
+                    ->subject($subject)
+                    ->from('admin@gmail.com');
+            });
+
+            Session::flash('success', ' Ticket Resolved & Closed Successfully');
             return back();
         } else {
             Session::flash('errors', 'Something Went Wrong!');

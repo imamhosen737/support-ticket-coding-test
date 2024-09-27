@@ -49,6 +49,7 @@
                                                 {{ date('d-m-Y h:i A', strtotime($item['created_at'])) }}</td>
                                             <td class="text-center">{{ $item['status'] == 1 ? '' : $item['status'] }}</td>
                                             <td class="text-center">
+												@if ($item['status'] !== 'Resolved')
 												<a href="{{ route('edit.ticket', $item['id']) }}" class="btn btn-edit">
 													<i class="fas fa-edit"></i> Edit
 												</a>
@@ -60,6 +61,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
+												@endif
                                             </td>
                                         </tr>
                                     @empty

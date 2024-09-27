@@ -33,33 +33,37 @@
                                     @forelse ($all_tickets as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
-                                            <td>{{ $item['subject'] }}</td>
-                                            <td>{{ $item['description'] }}</td>
-                                            <td>{{ $item['priority_level'] }}</td>
+                                            <td>{{ $item->subject }}</td>
+                                            <td>{{ $item->description }}</td>
+                                            <td>{{ $item->priority_level }}</td>
                                             <td class="text-center">
-                                                @if (!empty($item['attachment']))
-                                                    <a href="{{ asset($item['attachment']) }}" target="_blank"
-                                                        title="{{ basename($item['attachment']) }}">
+                                                @if (!empty($item->attachment))
+                                                    <a href="{{ asset($item->attachment) }}" target="_blank"
+                                                        title="{{ basename($item->attachment) }}">
                                                         <i class="fas fa-file" style="font-size: 15px;"></i>
                                                     </a>
                                                 @endif
-
                                             </td>
                                             <td class="text-center">
-                                                {{ date('d-m-Y h:i A', strtotime($item['created_at'])) }}</td>
-                                            <td class="text-center">{{ $item['status'] }}</td>
+                                                {{ date('d-m-Y h:i A', strtotime($item->created_at)) }}
+                                            </td>
+                                            <td class="text-center">{{ $item->status == 1 ? '' : $item->status }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('ticket.in-progress', $item['id']) }}"
-                                                    class="btn btn-edit">In Progress
-                                                </a>
-                                                <button type="submit" class="btn btn-delete"
-                                                    onclick="deleteTicket({{ $item['id'] }})">Close</button>
-                                                <form id="delete-form-{{ $item['id'] }}"
-                                                    action="{{ route('delete.ticket', $item['id']) }}" method="POST"
-                                                    style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+                                                @if ($item->status != 1)
+                                                    <a href="{{ route('ticket.in-progress', $item->id) }}"
+                                                        class="btn btn-edit disabled">In Progress</a>
+                                                @else
+                                                    <a href="{{ route('ticket.in-progress', $item->id) }}"
+                                                        class="btn btn-edit">In Progress</a>
+                                                @endif
+
+                                                @if ($item->status == 'Resolved')
+                                                    <a href="{{ route('ticket.resolved', ['id' => $item->id, 'customer_email' => $item->customer_email]) }}"
+                                                        class="btn btn-delete disabled">Resolved</a>
+                                                @else
+                                                    <a href="{{ route('ticket.resolved', ['id' => $item->id, 'customer_email' => $item->customer_email]) }}"
+                                                        class="btn btn-delete">Resolved</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -68,6 +72,7 @@
                                         </tr>
                                     @endforelse
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

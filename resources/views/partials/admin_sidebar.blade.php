@@ -13,30 +13,53 @@
                     Dashboard
                 </a>
 
-
-                <a class="nav-link {{ $prefix == 'setup' ? '' : 'collapsed' }}" href="#" data-bs-toggle="collapse"
-                    data-bs-target="#collapseLayouts2" aria-expanded="{($prefix == 'setup')?'true':'false'}}"
-                    aria-controls="collapseLayoutst1">
-                    <div class="sb-nav-link-icon"><i class="fas fa-wrench"></i></div>
-                    Setup Module
+                <a class="nav-link {{ $prefix == 'ticket' ? '' : 'collapsed' }} " href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
+                    aria-expanded="{($prefix =='ticket')?'true':'false'}}" aria-controls="collapseLayoutst2">
+                    <div class="sb-nav-link-icon"><i class="fas fa-issue"></i></div>
+                    My Ticket
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
 
-                {{-- <div class="collapse {{ $prefix == 'setup' ? 'collapse show' : '' }}" id="collapseLayouts2"
-                    aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div class="collapse {{ $prefix == 'ticket' ? 'collapse show' : '' }}" id="collapseLayouts2"
+                    aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link {{ $route == 'custom-field.index' ? 'active' : '' }}"
-                            href="{{ route('custom-field.index') }}"><i class="fas fa-angle-right"></i>&nbsp;Manage
-                            Custom Field</a>
+                        <a class="nav-link {{ $route == 'issue.ticket' ? 'active' : '' }}"
+                            href="{{ route('issue.ticket') }}"><i class="fas fa-angle-right"></i>&nbsp; Issue New
+                            Ticket</a>
+
+                        <a class="nav-link {{ $route == 'ticket.list' ? 'active' : '' }}"
+                            href="{{ route('ticket.list') }}"><i class="fas fa-angle-right"></i>&nbsp; Ticket List</a>
 
                     </nav>
-                </div> --}}
+                </div>
+
+
+                <a class="nav-link {{ $prefix == 'admin' ? '' : 'collapsed' }} " href="#"
+                    data-bs-toggle="collapse" data-bs-target="#collapseLayouts4"
+                    aria-expanded="{($prefix =='admin')?'true':'false'}}" aria-controls="collapseLayoutst4">
+                    <div class="sb-nav-link-icon"><i class="fas fa-issue"></i></div>
+                    All Tickets
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+                <div class="collapse {{ $prefix == 'admin' ? 'collapse show' : '' }}" id="collapseLayouts4"
+                    aria-labelledby="headingThree" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link {{ $route == 'ticket.list' ? 'active' : '' }}"
+                            href="{{ route('ticket.all-ticket') }}"><i class="fas fa-angle-right"></i>&nbsp; Ticket
+                            List</a>
+
+                    </nav>
+                </div>
+
+
 
                 <a class="nav-link {{ $prefix == 'setting' ? '' : 'collapsed' }} " href="#"
                     data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"
                     aria-expanded="{($prefix =='setting')?'true':'false'}}" aria-controls="collapseLayoutst2">
                     <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-                    Administrator Module
+                    Administrator
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
 

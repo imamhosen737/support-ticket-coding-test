@@ -44,4 +44,5 @@ Route::group(['middleware' => ['auth:customer']], function () {
 Route::prefix('admin')->group(function () {
     Route::get('/all-tickets', [TicketController::class, 'allTickets'])->name('ticket.all-ticket');
     Route::get('/in-progress/{id?}', [TicketController::class, 'inProgressTicket'])->name('ticket.in-progress');
+    Route::get('/resolved/{id?}/{customer_email?}', [TicketController::class, 'resolvedTicket'])->name('ticket.resolved');
 });

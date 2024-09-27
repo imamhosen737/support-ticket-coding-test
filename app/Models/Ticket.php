@@ -16,5 +16,8 @@ class Ticket extends Model
         'description',
         'priority_level',
         'attachment',
+        'customer_name',
+        'status',
+        'resolved_at'
     ];
 }

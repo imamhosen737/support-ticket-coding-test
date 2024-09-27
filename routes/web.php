@@ -28,10 +28,12 @@ Route::group(['middleware' => ['auth:customer']], function () {
     });
 
     Route::prefix('ticket')->group(function () {
+        Route::get('/ticket-list', [TicketController::class, 'index'])->name('ticket.list');
         Route::get('/issue-ticket', [TicketController::class, 'create'])->name('issue.ticket');
         // Route::put('/user-update', [CustomerController::class, 'updateUser'])->name('user.update');
-        // Route::get('/password/change', [CustomerController::class, 'passwordChange'])->name('password.change');
+        Route::get('/edit-ticket/{ticket}', [TicketController::class, 'edit'])->name('edit.ticket');
         Route::post('/save-ticket', [TicketController::class, 'store'])->name('save.ticket');
+        Route::delete('/delete-ticket/{ticket}', [TicketController::class, 'destroy'])->name('delete.ticket');
     });
 
     //Contact us  route

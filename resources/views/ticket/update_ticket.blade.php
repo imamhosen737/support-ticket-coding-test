@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Issue Ticket')
+@section('title', 'Update Ticket')
 @section('admin-content')
     @php
 
@@ -8,19 +8,19 @@
         <div class="container ">
             <div class="heading-title p-2 my-2">
                 <span class="my-3 heading "><i class="fas fa-home"></i> <a href="{{ route('dashboard') }}">Home</a> > Ticket >
-                    Issue Ticket
+                    Update Ticket
                 </span>
             </div>
             <div class="card mb-3">
-                <div class="card-header"><i class="fas fa-icon-ticket"></i> Ticket Issue Form</div>
+                <div class="card-header"><i class="fas fa-icon-ticket"></i> Ticket Update Form</div>
                 <div class="card-body table-card-body p-3 mytable-body">
 
                     <form id="customer_form" action="{{ route('save.ticket') }}" method="post"
                         enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="method_type" value="post">
-                        <input type="hidden" id="customer_id" name="customer_id" value="{{ $user_info->id }}">
-                        <input type="hidden" id="customer_name" name="customer_name" value="{{ $user_info->name }}">
+                        <input type="hidden" id="customer_id" name="customer_id" value="">
+                        <input type="hidden" id="customer_name" name="customer_name" value="">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
@@ -31,7 +31,8 @@
                                         <span class="clone"><b>:</b></span>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" name="subject" value="{{ old('subject', ) }}"
+                                        <input type="text" name="subject"
+                                            value="{{ old('subject', $update_data->subject) }}"
                                             class="form-control my-form-control @error('subject') is-invalid @enderror"
                                             id="subject">
                                         @error('subject')
@@ -49,7 +50,7 @@
 
                                     <div class="col-md-7">
                                         <textarea name="description" rows="3"
-                                            class="form-control my-form-control @error('description') is-invalid @enderror">{{ old('description') }}</textarea>
+                                            class="form-control my-form-control @error('description') is-invalid @enderror">{{ old('description', $update_data->description) }}</textarea>
                                         @error('description')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -66,13 +67,15 @@
                                     <div class="col-md-7">
                                         <select name="priority_level" id="priority_level"
                                             class="form-control my-form-control @error('priority_level') is-invalid @enderror">
-                                            <option value="">Select</option>
-                                            <option value="Low" {{ old('priority_level') == 'Low' ? 'selected' : '' }}>
+                                            <option value="Low"
+                                                {{ old('priority_level', $update_data->priority_level) == 'Low' ? 'selected' : '' }}>
                                                 Low</option>
                                             <option value="Medium"
-                                                {{ old('priority_level') == 'Medium' ? 'selected' : '' }}>Medium</option>
+                                                {{ old('priority_level', $update_data->priority_level) == 'Medium' ? 'selected' : '' }}>
+                                                Medium</option>
                                             <option value="Urgent"
-                                                {{ old('priority_level') == 'Urgent' ? 'selected' : '' }}>Urgent</option>
+                                                {{ old('priority_level', $update_data->priority_level) == 'Urgent' ? 'selected' : '' }}>
+                                                Urgent</option>
                                         </select>
                                         @error('priority_level')
                                             <span class="invalid-feedback" role="alert">

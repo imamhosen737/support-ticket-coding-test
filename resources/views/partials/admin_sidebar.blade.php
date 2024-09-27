@@ -13,6 +13,7 @@
                     Dashboard
                 </a>
 
+
                 @if (Auth::guard('customer')->check())
                     <a class="nav-link {{ $prefix == 'ticket' ? '' : 'collapsed' }} " href="#"
                         data-bs-toggle="collapse" data-bs-target="#collapseLayouts2"
@@ -77,7 +78,6 @@
                             </a>
                         </nav>
                     </div>
-
                 @elseif (Auth::guard('customer')->check())
                     <a class="nav-link {{ $prefix == 'setting' ? '' : 'collapsed' }} " href="#"
                         data-bs-toggle="collapse" data-bs-target="#collapseLayouts3"

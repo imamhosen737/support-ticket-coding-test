@@ -40,3 +40,8 @@ Route::group(['middleware' => ['auth:customer']], function () {
     Route::get('/contact-us', [ContactUsController::class, 'index'])->name('contact.us');
     Route::post('/contact-us/update', [ContactUsController::class, 'update'])->name('contact-us.update');
 });
+
+Route::prefix('admin')->group(function () {
+    Route::get('/all-tickets', [TicketController::class, 'allTickets'])->name('ticket.all-ticket');
+    Route::get('/in-progress/{id?}', [TicketController::class, 'inProgressTicket'])->name('ticket.in-progress');
+});

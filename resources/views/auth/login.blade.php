@@ -103,7 +103,8 @@
     <!--Notice Scrolling -->
     <section style="position: fixed;bottom:0px;left:0px;right:0px">
         <div class="alert alert-primary w-100 py-1 my-0" role="alert">
-            <strong>N.B: username :</strong> 01777664786, <strong>password :</strong> 123321 (Before update password)
+            <strong>N.B: Customer's username :</strong> imamhosen737@gmail.com, <strong>password :</strong> 123321
+            (Before update password)
         </div>
     </section>
     <!-- Close notice Scrolling -->

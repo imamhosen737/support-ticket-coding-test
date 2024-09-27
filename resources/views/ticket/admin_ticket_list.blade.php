@@ -4,7 +4,7 @@
     <main class="mb-5">
         <div class="container ">
             <div class="heading-title p-2 my-2">
-                <span class="my-3 heading "><i class="fas fa-home"></i> <a class="" href="">Home</a> > Ticket
+                <span class="my-3 heading "><i class="fas fa-home"></i> <a class="" href="">Home</a> >All Ticket
                     List</span>
             </div>
             <div class="row">
@@ -30,7 +30,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($ticket_list as $key => $item)
+                                    @forelse ($all_tickets as $key => $item)
                                         <tr>
                                             <td class="text-center">{{ $key + 1 }}</td>
                                             <td>{{ $item['subject'] }}</td>
@@ -47,11 +47,11 @@
                                             </td>
                                             <td class="text-center">
                                                 {{ date('d-m-Y h:i A', strtotime($item['created_at'])) }}</td>
-                                            <td class="text-center">{{ $item['status'] == 1 ? '' : $item['status'] }}</td>
+                                            <td class="text-center">{{ $item['status'] }}</td>
                                             <td class="text-center">
-												<a href="{{ route('edit.ticket', $item['id']) }}" class="btn btn-edit">
-													<i class="fas fa-edit"></i> Edit
-												</a>
+                                                <a href="{{ route('ticket.in-progress', $item['id']) }}"
+                                                    class="btn btn-edit">In Progress
+                                                </a>
                                                 <button type="submit" class="btn btn-delete"
                                                     onclick="deleteTicket({{ $item['id'] }})">Close</button>
                                                 <form id="delete-form-{{ $item['id'] }}"

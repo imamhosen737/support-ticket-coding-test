@@ -15,7 +15,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $ticket_list = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->get();
+        $ticket_list = Ticket::orderBy('created_at', 'asc')->where('customer_id', Auth::guard('customer')->user()->id)->get();
         return view('ticket.ticket_list', compact('ticket_list'));
     }
 
@@ -133,9 +133,9 @@ class TicketController extends Controller
                 if (!empty($ticket_file['attachment']) && file_exists($ticket_file['attachment'])) {
                     unlink($ticket_file['attachment']);
                 }
-                $ticketAttachment = $this->imageUpload($request, 'attachment', 'uploads/tickets');
+                $ticketAttachment   = $this->imageUpload($request, 'attachment', 'uploads/tickets');
             } else {
-                $ticketAttachment = $ticket_file['attachment'];
+                $ticketAttachment   = $ticket_file['attachment'];
             }
             $ticket->attachment = $ticketAttachment;
 
@@ -158,6 +158,32 @@ class TicketController extends Controller
             return back()->with('success', 'Successfully Close the Ticket!');
         } else {
             return back()->with('error', 'Unauthorized action.');
+        }
+    }
+
+
+    // For Admin Operations
+
+    public function allTickets()
+    {
+        $all_tickets = Ticket::orderBy('created_at', 'asc')->get();
+
+        return view('ticket.admin_ticket_list', compact('all_tickets'));
+    }
+
+    public function inProgressTicket($id = "")
+    {
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->status = 'In Progress';
+            $ticket->save();
+
+            Session::flash('success', ' Ticket In Progress Successfully');
+            return back();
+        } else {
+            Session::flash('errors', 'Something Went Wrong!');
+            return back();
         }
     }
 }

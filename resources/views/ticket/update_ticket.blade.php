@@ -15,12 +15,13 @@
                 <div class="card-header"><i class="fas fa-icon-ticket"></i> Ticket Update Form</div>
                 <div class="card-body table-card-body p-3 mytable-body">
 
-                    <form id="customer_form" action="{{ route('save.ticket') }}" method="post"
+                    <form id="customer_form" action="{{ route('update.ticket', $update_data->id) }}" method="POST"
                         enctype="multipart/form-data">
+                        @method('PUT')
                         @csrf
                         <input type="hidden" id="method_type" value="post">
-                        <input type="hidden" id="customer_id" name="customer_id" value="">
-                        <input type="hidden" id="customer_name" name="customer_name" value="">
+                        <input type="hidden" id="customer_id" name="customer_id" value="{{ $update_data->customer_id }}">
+                        <input type="hidden" id="customer_name" name="customer_name" value="{{ $update_data->customer_name }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
@@ -101,8 +102,10 @@
                                         <strong><span class="text-danger" id="imageError"></span></strong>
                                     </div>
                                     <div class="col-md-2 ps-0 col-4">
-                                        <img class="form-controlo img-thumbnail w-100" src="#" id="previewImage"
-                                            style="height:80px; background: #3f4a49;">
+                                        <img class="form-controlo img-thumbnail w-100"
+                                            src="{{ $update_data->attachment ? asset('public/tickets/' . $update_data->attachment) : '#' }}"
+                                            id="previewImage" style="height:80px; background: #3f4a49;"
+                                            alt="Attachment Preview">
                                     </div>
                                     <div class="col-md-12">
                                         <button type="submit" id="submit-btn"
@@ -133,6 +136,6 @@
             }
         }
         document.getElementById("previewImage").src =
-            "{{ isset($user->attachment) ? asset($user->attachment) : asset('noimage.png') }}";
+            "{{ isset($update_data->attachment) ? asset($update_data->attachment) : asset('noimage.png') }}";
     </script>
 @endpush

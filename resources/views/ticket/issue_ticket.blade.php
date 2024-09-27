@@ -21,6 +21,7 @@
                         <input type="hidden" id="method_type" value="post">
                         <input type="hidden" id="customer_id" name="customer_id" value="{{ $user_info->id }}">
                         <input type="hidden" id="customer_name" name="customer_name" value="{{ $user_info->name }}">
+                        <input type="hidden" id="customer_email" name="customer_email" value="{{ $user_info->email }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
@@ -31,7 +32,7 @@
                                         <span class="clone"><b>:</b></span>
                                     </div>
                                     <div class="col-md-7">
-                                        <input type="text" name="subject" value="{{ old('subject', ) }}"
+                                        <input type="text" name="subject" value="{{ old('subject') }}"
                                             class="form-control my-form-control @error('subject') is-invalid @enderror"
                                             id="subject">
                                         @error('subject')

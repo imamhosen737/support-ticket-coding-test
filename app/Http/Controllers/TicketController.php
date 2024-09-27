@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class TicketController extends Controller
@@ -51,11 +52,6 @@ class TicketController extends Controller
             $ticket->status         = 1;
             $ticket->resolved_at    = null;
 
-            // if ($request->hasFile('attachment')) {
-            //     $ticketAttachment   = $this->imageUpload($request, 'attachment', 'uploads/tickets');
-            //     $ticket->attachment = $ticketAttachment;
-            // }
-
             if ($request->hasFile('attachment')) {
                 $ticketAttachment = $this->imageUpload($request, 'attachment', 'uploads/tickets');
 
@@ -67,10 +63,26 @@ class TicketController extends Controller
             }
 
             $ticket->save();
-            Session::flash('success', ' User update Successfully');
+
+            $subject = 'Subject: ' . $request->subject;
+            $customer_email = $request->customer_email;
+            $customer_name = $request->customer_name;
+            $body = 'Customer ID: ' . $request->customer_id . "\n" .
+                'Customer Name: ' . $request->customer_name . "\n" .
+                'Subject: ' . $request->subject . "\n" .
+                'Description: ' . $request->description . "\n" .
+                'Priority Level: ' . $request->priority_level . "\n";
+
+            // Send the email
+            Mail::raw($body, function ($message) use ($subject, $customer_email, $customer_name) {
+                $message->to('admin@gmail.com')
+                    ->subject($subject)
+                    ->from($customer_email, $customer_name);
+            });
+            Session::flash('success', 'Ticket Issued Successfully');
             return back();
         } catch (\Throwable $th) {
-            Session::flash('errors', ' something went wrong');
+            Session::flash('errors', 'Something Went Wrong!');
             return back();
         }
     }
@@ -97,7 +109,43 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        $request->validate([
+            'customer_id'      => 'required',
+            'customer_name'    => 'required',
+            'subject'          => 'required',
+            'description'      => 'required',
+            'priority_level'   => 'required|in:Low,Medium,High',
+            'attachment'       => 'image|mimes:jpg,png,gif,bmp,pdf|max:2048',
+        ]);
+        try {
+
+            $ticket->customer_id    = $request->customer_id; //take from hidden field
+            $ticket->customer_name  = $request->customer_name; //take from hidden field
+            $ticket->subject        = $request->subject;
+            $ticket->description    = $request->description;
+            $ticket->priority_level = $request->priority_level;
+            $ticket->status         = 1;
+            $ticket->resolved_at    = null;
+
+            $ticket_file = Ticket::where('customer_id', Auth::guard('customer')->user()->id)->first();
+            $ticketAttachment = '';
+            if ($request->hasFile('attachment')) {
+                if (!empty($ticket_file['attachment']) && file_exists($ticket_file['attachment'])) {
+                    unlink($ticket_file['attachment']);
+                }
+                $ticketAttachment = $this->imageUpload($request, 'attachment', 'uploads/tickets');
+            } else {
+                $ticketAttachment = $ticket_file['attachment'];
+            }
+            $ticket->attachment = $ticketAttachment;
+
+            $ticket->save();
+            Session::flash('success', ' Ticket updated Successfully');
+            return redirect()->route('ticket.list');
+        } catch (\Throwable $th) {
+            Session::flash('errors', 'Something Went Wrong!');
+            return back();
+        }
     }
 
     /**
